@@ -1,3 +1,9 @@
+databases:
+  - name: shared-expenses-db
+    databaseName: shared_expenses
+    user: postgres
+    plan: free
+
 services:
   - type: web
     name: shared-expenses-backend
@@ -8,7 +14,9 @@ services:
     dockerfilePath: ./backend/Dockerfile
     envVars:
       - key: DATABASE_URL
-        value: postgresql+asyncpg://user:pass@host:port/dbname
+        fromDatabase:
+          name: shared-expenses-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: FRONTEND_URL

@@ -10,6 +10,13 @@ SQLALCHEMY_DATABASE_URL = os.getenv(
     "postgresql+asyncpg://postgres:postgres@localhost:5432/shared_expenses"
 )
 
+# Render/Heroku provide postgres:// or postgresql:// connection strings.
+# SQLAlchemy's async driver (asyncpg) requires postgresql+asyncpg://
+if SQLALCHEMY_DATABASE_URL.startswith("postgresql://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+elif SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+
 # Render uses Postgres, so this matches the tech stack requirement
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=False)
 
