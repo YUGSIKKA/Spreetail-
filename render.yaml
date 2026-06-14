@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: shared-expenses-backend
+    env: docker
+    region: oregon
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql+asyncpg://user:pass@host:port/dbname
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://shared-expenses-frontend.vercel.app

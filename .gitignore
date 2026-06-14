@@ -1,0 +1,33 @@
+# Virtual environment
+venv/
+.venv/
+ENV/
+env/
+
+# Python cache
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node.js
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Databases
+backend/*.db
+backend/*.sqlite3
+
+# Environment files / Secrets
+backend/.env
+.env
+.env.local
+.env.*.local
+
+# IDEs and System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
