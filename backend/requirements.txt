@@ -2,6 +2,7 @@ fastapi[all]
 uvicorn
 sqlalchemy
 asyncpg
+aiosqlite
 alembic
 python-jose[cryptography]
 passlib[bcrypt]
