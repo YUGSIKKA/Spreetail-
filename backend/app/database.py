@@ -10,9 +10,13 @@ SQLALCHEMY_DATABASE_URL = os.getenv(
     "postgresql+asyncpg://postgres:postgres@localhost:5432/shared_expenses"
 )
 
+# Check for placeholder database URL string
+if "host:port" in SQLALCHEMY_DATABASE_URL or "user:pass" in SQLALCHEMY_DATABASE_URL:
+    print("WARNING: Placeholder DATABASE_URL detected. Falling back to local SQLite database.")
+    SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./shared_expenses.db"
 # Render/Heroku provide postgres:// or postgresql:// connection strings.
 # SQLAlchemy's async driver (asyncpg) requires postgresql+asyncpg://
-if SQLALCHEMY_DATABASE_URL.startswith("postgresql://"):
+elif SQLALCHEMY_DATABASE_URL.startswith("postgresql://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 elif SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
